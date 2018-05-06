@@ -2,9 +2,14 @@ defmodule Elchemy.Format do
 
   import Kernel, except: [inspect: 1, inspect: 2]
 
-  @doc "Some doc"
+  @moduledoc """
+    Formating Elixir to Elm message type.
+  """
+
   @spec inspect(term()) :: String.t()
   def inspect(term, in_type \\ false)
+
+  @doc "When term is map"
   def inspect(term, _) when is_map(term) do
     case Map.to_list(term) do
       [] -> "Dict.fromList []"
@@ -21,6 +26,7 @@ defmodule Elchemy.Format do
     end
   end
 
+  @doc "When term is tuple"
   def inspect(term, in_type) when is_tuple(term) do
       [head | rest] = term |> Tuple.to_list
       if is_atom(head) do
@@ -34,7 +40,8 @@ defmodule Elchemy.Format do
         "(" <> Enum.join(inner, ", ") <> ")"
       end
   end
-
+  
+  @doc "When term is list"
   def inspect(term, _) when is_list(term) do
     inner =
       term
