@@ -41,11 +41,12 @@ defmodule Elchemy.Format do
       type = head |> Atom.to_string() |> String.capitalize()
       args = rest |> Enum.map(&inspect(&1, true)) |> Enum.join(" ")
 
-      if in_type do 
-        ["(", type, " ", args, ")"],
+      if in_type do
+        ["(", type, " ", args, ")"]
       else
         [type, " ", args]
       end |> Enum.join()
+
     else
       inner = term |> Tuple.to_list() |> Enum.map(&inspect/1)
       "(" <> Enum.join(inner, ", ") <> ")"
