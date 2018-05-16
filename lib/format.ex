@@ -38,7 +38,7 @@ defmodule Elchemy.Format do
     [head | rest] = term |> Tuple.to_list()
 
     if is_atom(head) do
-      type = head |> Atom.to_string() |> String.capitalize()
+      type = head |> Atom.to_string() |> Macro.camelize
       args = rest |> Enum.map(&inspect(&1, true)) |> Enum.join(" ")
 
       if in_type do

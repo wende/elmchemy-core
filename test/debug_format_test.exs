@@ -11,6 +11,10 @@ defmodule DebugFormatTest do
     assert Format.inspect(%{a: 1, b: 2}) == "{ a = 1, b = 2 }"
   end
 
+  test "Formats multi-worded types as CamelCase rather than Snake_case" do
+    assert Format.inspect({:type_name, 1, 2}) == "TypeName 1 2"
+  end
+
   test "Formats simple non-type (doesn't start with atom) tuples" do
     assert Format.inspect({1, 2}) == "(1, 2)"
   end
